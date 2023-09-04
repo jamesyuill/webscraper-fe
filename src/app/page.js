@@ -8,11 +8,14 @@ import ImageList from './components/ImageList';
 export default function Home() {
   const [searchUrl, setSearchUrl] = useState('');
   const [responseImages, setResponseImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     getAllImages(searchUrl).then(({ images }) => {
       setResponseImages(images);
+      setIsLoading(false);
     });
 
     setSearchUrl('');
@@ -37,6 +40,9 @@ export default function Home() {
         />
         <button type="submit">Submit</button>
       </form>
+
+      {isLoading && <p>Loading...</p>}
+
       <ImageList responseImages={responseImages} />
     </main>
   );
