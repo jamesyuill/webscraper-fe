@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { getAllImages } from '../../utils/getImages';
 
 import ImageList from './components/ImageList';
+import LoadingModal from './components/LoadingModal';
+import Header from './components/Header';
 
 export default function Home() {
   const [searchUrl, setSearchUrl] = useState('');
@@ -23,6 +25,7 @@ export default function Home() {
 
   return (
     <main className="main">
+      <Header />
       <form
         className="search-form"
         onSubmit={(e) => {
@@ -31,6 +34,7 @@ export default function Home() {
       >
         <label htmlFor="searchUrl">Search URL: </label>
         <input
+          className="input-text"
           type="text"
           id="searchUrl"
           value={searchUrl}
@@ -40,9 +44,7 @@ export default function Home() {
         />
         <button type="submit">Submit</button>
       </form>
-
-      {isLoading && <p>Loading...</p>}
-
+      {isLoading && <LoadingModal />}
       <ImageList responseImages={responseImages} />
     </main>
   );
